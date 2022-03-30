@@ -1,0 +1,21 @@
+String gitCredentials = "5e3cefbe-3eb3-45fb-93af-158cb2b3c3b4"
+String repoUrl = "https://github.com/Vrushalikokare67/jenkins.git"
+
+
+node {
+     def app 
+     stage('clone') {
+      //checkout scm  
+        git branch: branchName, credentialsId: 	gitCredentials, url: repoUrl
+         
+     }
+     stage('Build docker Image'){
+      app = docker.build("vrush12323/demo")
+    }
+     stage('Test Image'){
+       app.inside {
+         sh 'echo "TEST PASSED"'
+      }  
+    }
+     
+}
